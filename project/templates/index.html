@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>🌾 Crop Yield Prediction</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f9f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 400px;
+            margin: 60px auto;
+            background: #ffffff;
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #2e8b57;
+        }
+        label {
+            font-weight: bold;
+            color: #333;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+        input[type="submit"] {
+            background-color: #2e8b57;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #246b44;
+        }
+        .result {
+            text-align: center;
+            font-size: 1.2em;
+            margin-top: 20px;
+            color: #2e8b57;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>🌱 Crop Yield Prediction</h2>
+    <form method="POST" action="/predict">
+        <label>📍 Area:</label>
+        <select name="area">
+            {% for a in areas %}
+                <option value="{{ a }}">{{ a }}</option>
+            {% endfor %}
+        </select>
+        <label>🌾 Crop Item:</label>
+        <select name="item">
+            {% for i in items %}
+                <option value="{{ i }}">{{ i }}</option>
+            {% endfor %}
+        </select>
+        <label>📅 Year:</label>
+        <input type="number" name="year" required>
+        <label>🌧️ Average Rainfall (mm/year):</label>
+        <input type="number" name="rainfall" step="any" required>
+        <label>🧪 Pesticides Used (tonnes):</label>
+        <input type="number" name="pesticides" step="any" required>
+        <label>🌡️ Average Temperature (°C):</label>
+        <input type="number" name="temperature" step="any" required>
+        <input type="submit" value="Predict Yield">
+    </form>
+    {% if prediction %}
+        <div class="result">🌾 Predicted Yield: <strong>{{ prediction }}</strong> hg/ha</div>
+    {% endif %}
+</div>
+</body>
+</html>
